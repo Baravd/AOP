@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="aspectj-1.8.13">
+    <CLASSES>
+      <root url="jar://C:/AspectJ/lib/aspectjrt.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../jars/postgresql-42.2.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
