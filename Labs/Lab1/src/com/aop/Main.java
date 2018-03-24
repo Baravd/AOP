@@ -21,6 +21,7 @@ public class Main {
         CarRepository carRepository = new CarRepository();
         CarController carController = new CarController(carRepository);
         ConsoleUI consoleUI = new ConsoleUI(carController);
+        carRepository.addObserver(consoleUI);
         consoleUI.run();
 
         logger.info("Exiting" + SOURCE_CLASS + "main...");

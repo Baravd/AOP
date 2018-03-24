@@ -2,6 +2,7 @@ package com.aop.repositories;
 
 import com.aop.model.Car;
 import com.aop.utils.LoggerSingleton;
+import com.aop.utils.Observable;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-public class CarRepository {
+public class CarRepository extends Observable {
 
     private static final String url = "jdbc:postgresql://localhost:5432/AOP";
 
@@ -25,6 +26,7 @@ public class CarRepository {
 
     public CarRepository()
             throws SQLException {
+        super();
         logger.info("new() " + SOURCE_CLASS);
         Properties props = new Properties();
         props.setProperty("user", "postgres");
@@ -54,6 +56,8 @@ public class CarRepository {
         resultSet.close();
         logger.info("Exiting" + SOURCE_CLASS + "findAll...");
 
+        String message = "Find all returned with \n" + cars;
+        notifyObservers(message);
         return cars;
     }
 
@@ -69,6 +73,8 @@ public class CarRepository {
         statement.setDouble(4, car.getPrice());
         statement.execute();
 
+        String message = "We added the car " + car;
+        notifyObservers(message);
         logger.info("Exiting" + SOURCE_CLASS + "addCar...");
         return car;
 
@@ -86,6 +92,11 @@ public class CarRepository {
         statement.setDouble(3, car.getPrice());
         statement.execute();
 
+
+        String message = "New values of car with id=" + car.getId() + "  are=" + car;
+        notifyObservers(message);
+
+
         logger.info("Exiting" + SOURCE_CLASS + "updateCar...");
 
         return car;
@@ -99,6 +110,10 @@ public class CarRepository {
         PreparedStatement statement = conn.prepareStatement(deleteQuery);
         statement.setInt(1, id);
         statement.execute();
+
+
+        String message = "Deleted car with id" + id;
+        notifyObservers(message);
 
         logger.info("Exiting" + SOURCE_CLASS + "deleteCar...");
 

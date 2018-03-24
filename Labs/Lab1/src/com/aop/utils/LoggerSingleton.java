@@ -35,6 +35,7 @@ public class LoggerSingleton {
                 handler = new FileHandler(LOG_FILE, true);
                 handler.setFormatter(new SimpleFormatter());
                 logger.addHandler(handler);
+                logger.setUseParentHandlers(false);
             } catch (IOException e) {
                 e.printStackTrace();
             }

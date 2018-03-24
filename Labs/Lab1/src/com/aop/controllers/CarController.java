@@ -17,7 +17,7 @@ public class CarController {
 
 
     public CarController(CarRepository carRepository) {
-        logger.info("new() " + SOURCE_CLASS);//no pattern %s as in timber
+        //logger.info("new() " + SOURCE_CLASS);//no pattern %s as in timber
         this.carRepository = carRepository;
     }
 

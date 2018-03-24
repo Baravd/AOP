@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
-public class ConsoleUI implements Observer<List<Car>> {
+public class ConsoleUI implements Observer<String> {
 
     private static final String SOURCE_CLASS = ConsoleUI.class.getName();
 
@@ -19,14 +19,12 @@ public class ConsoleUI implements Observer<List<Car>> {
 
     private final Scanner scanner = new Scanner(System.in);
 
-    private List<Car> cars;
 
     public ConsoleUI(CarController carController)
             throws SQLException {
         logger.info("new() " + SOURCE_CLASS);
 
         this.carController = carController;
-        cars = carController.findAll();
 
     }
 
@@ -55,7 +53,6 @@ public class ConsoleUI implements Observer<List<Car>> {
 
                     try {
                         int i = carController.deleteCar(id);
-                        System.out.printf("Car %d was deleted\n", i);
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
@@ -82,6 +79,7 @@ public class ConsoleUI implements Observer<List<Car>> {
                     break;
                 default:
                     System.out.println("Invalid option");
+                    break;
             }
         } while (!exit);
 
@@ -123,8 +121,9 @@ public class ConsoleUI implements Observer<List<Car>> {
 
 
     @Override
-    public void update(List<Car> cars) {
+    public void update(String message) {
         logger.info("Entered " + SOURCE_CLASS + "update overridden method...");
-        this.cars = cars;
+        System.out.println("---------Observer-----------");
+        System.out.println(message);
     }
 }
