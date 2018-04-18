@@ -2,18 +2,15 @@ package com.aop.ui;
 
 import com.aop.controllers.CarController;
 import com.aop.model.Car;
-import com.aop.utils.LoggerSingleton;
 import com.aop.utils.Observer;
 
 import java.sql.SQLException;
-import java.util.List;
 import java.util.Scanner;
 
-public class ConsoleUI implements Observer<String> {
+public class ConsoleUI {
 
     private static final String SOURCE_CLASS = ConsoleUI.class.getName();
 
-    private final static LoggerSingleton logger = LoggerSingleton.getInstance();
 
     private final CarController carController;
 
@@ -22,14 +19,12 @@ public class ConsoleUI implements Observer<String> {
 
     public ConsoleUI(CarController carController)
             throws SQLException {
-        logger.info("new() " + SOURCE_CLASS);
 
         this.carController = carController;
 
     }
 
     public void run() {
-        logger.info("Entered " + SOURCE_CLASS + "run...");
 
         boolean exit = false;
         Car car;
@@ -83,7 +78,6 @@ public class ConsoleUI implements Observer<String> {
             }
         } while (!exit);
 
-        logger.info("Exiting " + SOURCE_CLASS + "run...");
 
     }
 
@@ -120,10 +114,9 @@ public class ConsoleUI implements Observer<String> {
     }
 
 
-    @Override
+    /*@Override
     public void update(String message) {
-        logger.info("Entered " + SOURCE_CLASS + "update overridden method...");
         System.out.println("---------Observer-----------");
         System.out.println(message);
-    }
+    }*/
 }

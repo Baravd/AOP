@@ -1,7 +1,7 @@
 package com.aop.utils;
 
-public interface Observer<E> {
+public interface Observer {
 
-    void update(E e);
+    void update(Object e);
 
 }

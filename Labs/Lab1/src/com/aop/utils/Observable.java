@@ -8,7 +8,7 @@ import java.util.List;
 public class Observable {
 
 
-    private List<Observer<String>> observers;
+    /*private List<Observer<String>> observers;
 
     public Observable() {
         observers = new ArrayList<>();
@@ -32,5 +32,5 @@ public class Observable {
 
     public void setObservers(List<Observer<String>> observers) {
         this.observers = observers;
-    }
+    }*/
 }
