@@ -4,14 +4,16 @@ import com.aop.repositories.CarRepository;
 import com.aop.ui.ConsoleUI;
 import com.aop.utils.Observer;
 import com.aop.utils.Subject;
+import org.aspectj.lang.Signature;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public aspect ObserverAspect {
     declare parents:CarRepository implements Subject;
     declare parents:ConsoleUI implements Observer;
 
-    private List<Observer> Subject.observers;
+    private List<Observer> Subject.observers = new ArrayList<Observer>();
 
     public void Subject.addObserver(Observer obs) {
         System.out.println("Adding observer");
@@ -23,7 +25,9 @@ public aspect ObserverAspect {
 
     }
     public void Subject.notifyObservers(Object o) {
-        observers.forEach((observer) -> observer.update(o));
+        for (Observer observer : observers) {
+            observer.update(o);
+        }
     }
 
     pointcut observed(CarRepository repo):execution(public * com.aop.repositories.CarRepository.*(..)) && this(repo);
@@ -34,19 +38,14 @@ public aspect ObserverAspect {
         carRepository = repo;
     }
     after(CarRepository repo) returning: observed(repo){
+        Signature signature = thisJoinPointStaticPart.getSignature();
         System.out.println("!!!!Inside ObserverAspect: notifyObservers!!!!!");
-        repo.notifyObservers(new Object());
+        repo.notifyObservers(signature.toLongString());
     }
-    public void ConsoleUI.update(Object o){
-        System.out.println("Inside ObserverAspect: ViewResultsHandler.update ");
+    public void ConsoleUI.update(Object o) {
+        System.out.println("!!!! operation on=" + o);
 
     }
-
-
-
-
-
-
 
 
 }

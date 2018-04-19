@@ -18,7 +18,7 @@ public class Main {
         CarRepository carRepository = new CarRepository();
         CarController carController = new CarController(carRepository);
         ConsoleUI consoleUI = new ConsoleUI(carController);
-        //carRepository.addObserver(consoleUI);
+        carRepository.addObserver(consoleUI);
         consoleUI.run();
 
 
